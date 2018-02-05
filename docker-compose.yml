@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    postgres:
+        image: postgres:10.1
+        ports:
+            - 54322:5432
+        volumes:
+            - ~/.backup/postgres/go/gorm-test:/var/lib/postgresql/data
+        environment:
+            - "POSTGRES_USER=root"
+            - "POSTGRES_PASSWORD=secret"
+            - "POSTGRES_DB=gorm"
+
+    adminer:
+        image: adminer:4.3.1-standalone
+        ports:
+          - 8031:8080
+        links:
+          - postgres:db
